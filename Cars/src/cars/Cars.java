@@ -34,7 +34,8 @@ public class Cars {
         
              // connect through driver
              Connection conn = DriverManager.getConnection
-                     ("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
+                     //("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
+                     ("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
         
              // Create Oracle DatabaseMetaData object
              DatabaseMetaData meta = conn.getMetaData();
@@ -56,8 +57,10 @@ public class Cars {
         final CarUI test = new CarUI();
         final JComboBox box1 = test.getComboBox1();
         final JTextArea text = test.getTextArea();
+        final JTextArea text2 = test.getTextArea2();
         box1.removeAllItems();
         final JComboBox box2 = test.getComboBox2();
+        final JComboBox box4 = test.getComboBox4();
         int i = 0;
         while(i < makes.length){
             box1.addItem(makes[i]);
@@ -71,7 +74,8 @@ public class Cars {
                 
                 try{
                     Connection conn = DriverManager.getConnection
-                     ("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
+                     //("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
+                            ("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
                     Statement stmt = conn.createStatement();
                     ResultSet testSet = stmt.executeQuery("SELECT DISTINCT MODEL FROM APL"+makeAbbr);
                     box2.removeAllItems();
@@ -100,7 +104,8 @@ public class Cars {
                     System.out.println("SELECT YEAR FROM APL"+makeAbbr+" WHERE model = '"+modelName+"'");
                     try{
                         Connection conn = DriverManager.getConnection
-                         ("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
+                         //("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
+                                ("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
                         Statement stmt = conn.createStatement();
                         System.out.println(makeName);
                         ResultSet testSet = stmt.executeQuery("SELECT DISTINCT YEAR FROM APL"+makeAbbr+" WHERE model = '"+modelName+"'");
@@ -132,19 +137,23 @@ public class Cars {
                     System.out.println("SELECT * FROM APL"+makeAbbr+" WHERE model = '"+modelName+"' AND year = "+modelYear);
                     try{
                         Connection conn = DriverManager.getConnection
-                         ("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
+                         //("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
+                                ("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
                         Statement stmt = conn.createStatement();
                         System.out.println(makeName);
                         ResultSet testSet = stmt.executeQuery("SELECT * FROM APL"+makeAbbr+" WHERE model = '"+modelName+"' AND year = "+modelYear);
                         String all_Data="";
-                        while (testSet.next())
+                        box4.removeAllItems();
+                        while (testSet.next()){
                             all_Data = all_Data + "Model: " + testSet.getString(1) + 
-                                    " Year: " + testSet.getString(2)+
-                                    " Description: "+testSet.getString(3)+
-                                    " LITER: "+testSet.getString(4)+
-                                    " ENG: "+testSet.getString(5)+
-                                    " CUBIC: "+testSet.getString(6)+
-                                    " RLINK: "+testSet.getString(7)+"\n";
+                                    " \nYear: " + testSet.getString(2)+
+                                    " \nDescription: "+testSet.getString(3)+
+                                    " \nLITER: "+testSet.getString(4)+
+                                    " \nENG: "+testSet.getString(5)+
+                                    " \nCUBIC: "+testSet.getString(6)+
+                                    " \nRLINK: "+testSet.getString(7)+"\n";
+                                   box4.addItem(testSet.getString(7));
+                        }
                         text.setText(all_Data);
                         testSet.close();
                         stmt.close();
@@ -156,6 +165,47 @@ public class Cars {
                 }
             }
         });
+        
+        box4.addItem("test".toString());
+        box4.addItem("testasdf".toString());
+        box4.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){              
+               
+                String rlink = (String)box4.getSelectedItem();
+                  
+                    try{
+                        Connection conn = DriverManager.getConnection
+                         //("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
+                                ("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
+                        Statement stmt = conn.createStatement();
+                        ResultSet testSet = stmt.executeQuery("select * from rdimmod where P_Number in (select MOD4 from radcrx where rlink=" + rlink+ ")");
+                        String all_Data="";
+                        while (testSet.next()){
+                            all_Data = all_Data + "PNum: " + testSet.getString(1) + 
+                                    " \nCore: " + testSet.getString(2)+
+                                    " \nINHEAD: "+testSet.getString(3)+
+                                    " \nOUTHEAD: "+testSet.getString(4)+
+                                    " \nINCON: "+testSet.getString(5)+
+                                    " \nOUCON: "+testSet.getString(6)+
+                                    " \nTMOUNT: "+testSet.getString(7)+
+                                    " \nOILCOOL: "+testSet.getString(8)+
+                                    " \nPRICE: "+testSet.getString(9)+
+                                    " \nAMOUNT: "+testSet.getString(10)+"\n";
+                                            
+                        }
+                        
+                        text2.setText(all_Data);
+                        testSet.close();
+                        stmt.close();
+                        conn.close();
+                    }
+                    catch(SQLException exep){
+                       exep.printStackTrace();
+                    }
+                }
+            
+        });
+        
         test.setVisible(true);
 
         
