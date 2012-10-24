@@ -25,7 +25,7 @@ public class Cars {
      */
     public static void main(String[] args) throws Exception {
         
-        String[] makes = {"BUICK","CADILLAC","CHEVROLET","CHRYSLER","FORD","CHEVROLET & GMC TRUCK & VAN","INTERNATIONAL TRUCK (I.H.C.)","MAZDA","OLDSMOBILE","PORSCHE","RENAULT","SAAB","SUBARU","TOYOTA","UPS","VOLKSWAGEN"};
+        String[] makes = {"Select a Make","BUICK","CADILLAC","CHEVROLET","CHRYSLER","FORD","CHEVROLET & GMC TRUCK & VAN","INTERNATIONAL TRUCK (I.H.C.)","MAZDA","OLDSMOBILE","PORSCHE","RENAULT","SAAB","SUBARU","TOYOTA","UPS","VOLKSWAGEN"};
 
                 Class.forName("oracle.jdbc.driver.OracleDriver");
              // Load the Oracle JDBC driver
@@ -93,7 +93,8 @@ public class Cars {
             }
         });
         final JComboBox box3 = test.getComboBox3();
-        box3.removeAllItems();
+        box2.removeAllItems();
+        box2.addItem("Select a Model".toString());
         box2.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 String modelName = (String)box2.getSelectedItem();
@@ -122,9 +123,8 @@ public class Cars {
                 }
             }
         });
-        
-        box3.addItem("test".toString());
-        box3.addItem("testasdf".toString());
+        box3.removeAllItems();
+        box3.addItem("Select a Year".toString());
         box3.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 String modelName = (String)box2.getSelectedItem();
@@ -166,8 +166,8 @@ public class Cars {
             }
         });
         
-        box4.addItem("test".toString());
-        box4.addItem("testasdf".toString());
+        box4.removeAllItems();
+        box4.addItem("Select a RLINK".toString());
         box4.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){              
                
