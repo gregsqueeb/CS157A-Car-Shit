@@ -34,6 +34,9 @@ public class CarUI extends javax.swing.JFrame {
     public JTextArea getTextArea(){
         return jTextArea1;
     }
+    public JTextArea getTextArea2(){
+        return jTextArea2;
+    }
     public String selectedMake(String selectedMake){
         //Methods in below comments are named incorrectly
 //String selectedMake = getComboBoxText();
