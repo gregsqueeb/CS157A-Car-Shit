@@ -34,8 +34,8 @@ public class Cars {
         
              // connect through driver
              Connection conn = DriverManager.getConnection
-                     //("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
-                     ("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
+                     ("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
+                     //("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
         
              // Create Oracle DatabaseMetaData object
              DatabaseMetaData meta = conn.getMetaData();
@@ -74,8 +74,8 @@ public class Cars {
                 
                 try{
                     Connection conn = DriverManager.getConnection
-                     //("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
-                            ("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
+                     ("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
+                            //("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
                     Statement stmt = conn.createStatement();
                     ResultSet testSet = stmt.executeQuery("SELECT DISTINCT MODEL FROM APL"+makeAbbr);
                     box2.removeAllItems();
@@ -105,8 +105,8 @@ public class Cars {
                     System.out.println("SELECT YEAR FROM APL"+makeAbbr+" WHERE model = '"+modelName+"'");
                     try{
                         Connection conn = DriverManager.getConnection
-                         //("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
-                                ("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
+                         ("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
+                                //("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
                         Statement stmt = conn.createStatement();
                         System.out.println(makeName);
                         ResultSet testSet = stmt.executeQuery("SELECT DISTINCT YEAR FROM APL"+makeAbbr+" WHERE model = '"+modelName+"'");
@@ -137,8 +137,8 @@ public class Cars {
                     System.out.println("SELECT * FROM APL"+makeAbbr+" WHERE model = '"+modelName+"' AND year = "+modelYear);
                     try{
                         Connection conn = DriverManager.getConnection
-                         //("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
-                                ("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
+                         ("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
+                                //("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
                         Statement stmt = conn.createStatement();
                         System.out.println(makeName);
                         ResultSet testSet = stmt.executeQuery("SELECT * FROM APL"+makeAbbr+" WHERE model = '"+modelName+"' AND year = "+modelYear);
@@ -175,8 +175,8 @@ public class Cars {
                   
                     try{
                         Connection conn = DriverManager.getConnection
-                         //("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
-                                ("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
+                         ("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
+                         //       ("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
                         Statement stmt = conn.createStatement();
                         ResultSet testSet = stmt.executeQuery("select * from rdimmod where P_Number in (select MOD4 from radcrx where rlink=" + rlink+ ")");
                         String all_Data="";
