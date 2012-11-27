@@ -12,6 +12,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Timer;
 import javax.swing.*;
 
 /**
@@ -56,14 +57,243 @@ public class Cars {
         // TODO code application logic here
         final CarUI test = new CarUI();
         final JComboBox box1 = test.getComboBox1();
+        final JComboBox boxMake = test.getComboBoxMake();
         final JTextArea text = test.getTextArea();
         final JTextArea text2 = test.getTextArea2();
         box1.removeAllItems();
+        boxMake.removeAllItems();
         final JComboBox box2 = test.getComboBox2();
         final JComboBox box4 = test.getComboBox4();
+        final JTextField textField1 = test.getJText1();
+        final JTextField textField2 = test.getJText2();
+        final JTextField textField3 = test.getJText3();
+        final JTextField textField4 = test.getJText4();
+        final JTextField textField5 = test.getJText5();
+        final JTextField textField6 = test.getJText6();
+        final JTextField textField7 = test.getJText7();
+        final JTextField textField8 = test.getJText8();
+        final JTextField textField9 = test.getJText9();
+        final JTextField textField10 = test.getJText10();
+        final JTextField textField11 = test.getJText11();
+        final JTextField textField12 = test.getJText12();
+        final JTextField textField13 = test.getJText13();
+        final JTextField textField14 = test.getJText14();
+        final JTextField textField15 = test.getJText15();
+        final JTextField textField16 = test.getJText16();
+        final JTextField textField17 = test.getJText17();
+        
+        final JButton newCar = test.getJButton1();
+        final JButton newPart = test.getJButton2();
+        
+        newPart.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                String rlink = (String)box4.getSelectedItem();
+                String pnum, core, inhead, outhead, incon, oucon, tmount, oilcool, price, amount;
+                if(textField8.getText().equals("")){
+                    pnum = "NA";
+                }
+                else{
+                    pnum = textField8.getText();
+                }
+                if(textField9.getText().equals("")){
+                    core = "NA";
+                }
+                else{
+                    core = textField9.getText();
+                }
+                if(textField10.getText().equals("")){
+                    inhead = "NA";
+                }
+                else{
+                    inhead = textField10.getText();
+                }
+                if(textField11.getText().equals("")){
+                    outhead = "NA";
+                }
+                else{
+                    outhead = textField11.getText();
+                }
+                if(textField12.getText().equals("")){
+                   incon = "NA";
+                }
+                else{
+                    incon = textField12.getText();
+                }
+                if(textField13.getText().equals("")){
+                    oucon = "NA";
+                }
+                else{
+                    oucon = textField13.getText();
+                }
+                if(textField14.getText().equals("")){
+                    tmount = "NA";
+                }
+                else{
+                    tmount = textField14.getText();
+                }
+                if(textField15.getText().equals("")){
+                    oilcool = "NA";
+                }
+                else{
+                    oilcool = textField15.getText();
+                }
+                if(textField16.getText().equals("")){
+                    price = "0";
+                }
+                else{
+                    price = textField16.getText();
+                }
+                if(textField17.getText().equals("")){
+                    amount = "0";
+                }
+                else{
+                    amount = textField17.getText();
+                }
+                try{
+                    Connection conn = DriverManager.getConnection
+                     ("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
+                            //("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
+                    Statement stmt = conn.createStatement();
+                    System.out.println("INSERT INTO rdimmod VALUES ('"+pnum+"','"+core+"','"+inhead+"','"+outhead+"','"+incon+"','"+oucon+"','"+tmount+"','"+oilcool+"',"+price+", "+amount+")");
+                    ResultSet testSet = stmt.executeQuery("INSERT INTO rdimmod VALUES ('"+pnum+"','"+core+"','"+inhead+"','"+outhead+"','"+incon+"','"+oucon+"','"+tmount+"','"+oilcool+"',"+price+", "+amount+")");
+                    testSet.close();
+                    stmt.close();
+                    conn.close();
+                    newPart.setText("Inserted");
+                    textField8.setText("");
+                    textField9.setText("");
+                    textField10.setText("");
+                    textField11.setText("");
+                    textField12.setText("");
+                    textField13.setText("");
+                    textField14.setText("");
+                    textField15.setText("");
+                    textField16.setText("");
+                    textField17.setText("");
+                    Timer time = new Timer();
+                    (new Thread(new Runnable(){
+                        public void run(){
+                            newPart.setEnabled(false);
+                            try{
+                                Thread.sleep(2000);
+                            }
+                            catch(InterruptedException exep){
+                                exep.printStackTrace();
+                            }
+                            newPart.setText("Add Part");
+                            newPart.setEnabled(true);
+                        }
+                    })).start();
+                }
+                catch(SQLException exep){
+                   exep.printStackTrace();
+                }
+                
+                
+            }
+        });
+        
+        
+        
+        newCar.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                String model;
+                String description;
+                String year;
+                String liter;
+                String rlink;
+                String engine;
+                String cubic;
+                String makeName = (String)boxMake.getSelectedItem();
+                String makeAbbr = test.selectedMake(makeName);
+                if(textField1.getText().equals("")){
+                    model = "NA";
+                }
+                else{
+                    model = textField2.getText();
+                }
+                if(textField1.getText().equals("")){
+                    description = "NA";
+                }
+                else{
+                    description = textField1.getText();
+                }
+                if(textField3.getText().equals("")){
+                    year = "NA";
+                }
+                else{
+                    year = textField3.getText();
+                }
+                if(textField5.getText().equals("")){
+                    liter = "NA";
+                }
+                else{
+                    liter = textField5.getText();
+                }
+                if(textField4.getText().equals("")){
+                   rlink = "NA";
+                }
+                else{
+                    rlink = textField4.getText();
+                }
+                if(textField6.getText().equals("")){
+                    engine = "NA";
+                }
+                else{
+                    engine = textField6.getText();
+                }
+                if(textField7.getText().equals("")){
+                    cubic = "NA";
+                }
+                else{
+                    cubic = textField7.getText();
+                }
+
+                try{
+                    Connection conn = DriverManager.getConnection
+                     ("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
+                            //("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
+                    Statement stmt = conn.createStatement();
+                    System.out.println("INSERT INTO APL"+makeAbbr+" VALUES ('"+model+"', "+year+", '"+description+"', '"+liter+"', '"+engine+"', "+cubic+", "+rlink+")");
+                    ResultSet testSet = stmt.executeQuery("INSERT INTO APL"+makeAbbr+" VALUES ('"+model+"', "+year+", '"+description+"', '"+liter+"', '"+engine+"', "+cubic+", "+rlink+")");
+                    testSet.close();
+                    stmt.close();
+                    conn.close();
+                    newCar.setText("Inserted");
+                    textField1.setText("");
+                    textField2.setText("");
+                    textField3.setText("");
+                    textField4.setText("");
+                    textField5.setText("");
+                    textField6.setText("");
+                    textField7.setText("");
+                    Timer time = new Timer();
+                    (new Thread(new Runnable(){
+                        public void run(){
+                            newCar.setEnabled(false);
+                            try{
+                                Thread.sleep(2000);
+                            }
+                            catch(InterruptedException exep){
+                                exep.printStackTrace();
+                            }
+                            newCar.setText("Create New Car");
+                            newCar.setEnabled(true);
+                        }
+                    })).start();
+                    
+                }
+                catch(SQLException exep){
+                   exep.printStackTrace();
+                }
+            }
+        });
+        
+        
         int i = 0;
         while(i < makes.length){
             box1.addItem(makes[i]);
+            boxMake.addItem(makes[i]);
             i++;
         }
         box1.addActionListener(new ActionListener(){
