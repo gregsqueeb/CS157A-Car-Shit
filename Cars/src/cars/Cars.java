@@ -63,6 +63,7 @@ public class Cars {
         box1.removeAllItems();
         boxMake.removeAllItems();
         final JComboBox box2 = test.getComboBox2();
+        final JComboBox box3 = test.getComboBox3();
         final JComboBox box4 = test.getComboBox4();
         final JTextField textField1 = test.getJText1();
         final JTextField textField2 = test.getJText2();
@@ -84,7 +85,63 @@ public class Cars {
         
         final JButton newCar = test.getJButton1();
         final JButton newPart = test.getJButton2();
+        final JButton deleteCar = test.getJButton3();
+        final JButton deletePart = test.getJButton4();
         
+        // delete the selected car
+        deleteCar.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                String makeName = (String)box1.getSelectedItem();
+                String makeAbbr = test.selectedMake(makeName);
+                
+                try{
+                    Connection conn = DriverManager.getConnection
+                     ("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
+                            //("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
+                    Statement stmt = conn.createStatement();
+                    System.out.println("Delete from APL"+makeAbbr+" where model ='"+box2.getSelectedItem()+"' and year="+box3.getSelectedItem()+" and rlink = "+box4.getSelectedItem());
+                    ResultSet testSet = stmt.executeQuery("Delete from APL"+makeAbbr+" where model = '"+box2.getSelectedItem()+"' and year = "+box3.getSelectedItem()+" and rlink = "+box4.getSelectedItem());
+                    
+                    testSet.close();
+                    stmt.close();
+                    conn.close();
+                    box1.setSelectedItem("Select a Make");
+                    box2.removeAllItems();
+                    box3.removeAllItems();
+                    box4.removeAllItems();
+                }
+                catch(SQLException exep){
+                   exep.printStackTrace();
+                }
+            }
+        });
+        // delete the selected part
+        deletePart.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                String makeName = (String)box1.getSelectedItem();
+                String makeAbbr = test.selectedMake(makeName);
+                
+                try{
+                    Connection conn = DriverManager.getConnection
+                     ("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
+                            //("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
+                    Statement stmt = conn.createStatement();
+                    String rlink = (String)box4.getSelectedItem();
+                    System.out.println("delete from rdimmod where P_Number in (select MOD4 from radcrx where rlink=" + rlink+ ")");
+                    ResultSet testSet = stmt.executeQuery("delete from rdimmod where P_Number in (select MOD4 from radcrx where rlink=" + rlink+ ")");
+                    
+                    testSet.close();
+                    stmt.close();
+                    conn.close();
+                    text2.setText("");
+                }
+                catch(SQLException exep){
+                   exep.printStackTrace();
+                }
+            }
+        });
+        
+        // code to create a new part
         newPart.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
                 String rlink = (String)box4.getSelectedItem();
@@ -194,7 +251,7 @@ public class Cars {
         });
         
         
-        
+        // code to create a new car
         newCar.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
                 String model;
@@ -289,13 +346,14 @@ public class Cars {
             }
         });
         
-        
+        // Add all the makes to the combobox
         int i = 0;
         while(i < makes.length){
             box1.addItem(makes[i]);
             boxMake.addItem(makes[i]);
             i++;
         }
+        // Listen for a change on this combo box
         box1.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
                 JComboBox cb = (JComboBox)e.getSource();
@@ -322,7 +380,6 @@ public class Cars {
                 
             }
         });
-        final JComboBox box3 = test.getComboBox3();
         box2.removeAllItems();
         box2.addItem("Select a Model".toString());
         box2.addActionListener(new ActionListener(){
