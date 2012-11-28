@@ -227,6 +227,17 @@ public class Cars {
                     textField15.setText("");
                     textField16.setText("");
                     textField17.setText("");
+                    String all_Data = "PNum: " + pnum + 
+                                    " \nCore: " + core+
+                                    " \nINHEAD: "+inhead+
+                                    " \nOUTHEAD: "+outhead+
+                                    " \nINCON: "+incon+
+                                    " \nOUCON: "+oucon+
+                                    " \nTMOUNT: "+tmount+
+                                    " \nOILCOOL: "+oilcool+
+                                    " \nPRICE: "+price+
+                                    " \nAMOUNT: "+amount+"\n";
+                    text2.setText(all_Data);
                     Timer time = new Timer();
                     (new Thread(new Runnable(){
                         public void run(){
@@ -276,7 +287,7 @@ public class Cars {
                     description = textField1.getText();
                 }
                 if(textField3.getText().equals("")){
-                    year = "NA";
+                    year = "12";
                 }
                 else{
                     year = textField3.getText();
@@ -300,7 +311,7 @@ public class Cars {
                     engine = textField6.getText();
                 }
                 if(textField7.getText().equals("")){
-                    cubic = "NA";
+                    cubic = "0";
                 }
                 else{
                     cubic = textField7.getText();
