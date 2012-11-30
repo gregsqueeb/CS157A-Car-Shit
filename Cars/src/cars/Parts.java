@@ -18,8 +18,8 @@ import javax.swing.*;
  * @author Alben Cheung
  */
 public class Parts {
-    static String dbConnectString = "jdbc:oracle:thin:@localhost:1521:orcl2";
-    static String dbUserName = "scott";
+    static String dbConnectString = "jdbc:oracle:thin:@localhost:1521:XE";
+    static String dbUserName = "system";
     static String dbPassword = "tiger"; 
     /**
      * @param args the command line arguments

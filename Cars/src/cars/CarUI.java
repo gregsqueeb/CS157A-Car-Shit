@@ -52,6 +52,9 @@ public class CarUI extends javax.swing.JFrame {
     public JButton getJButton4(){
         return jButton4;
     }
+    public JButton getJButton5(){
+    	return jButton5;
+    }
     public JTextField getJText1(){
         return jTextField1;
     }
@@ -102,6 +105,27 @@ public class CarUI extends javax.swing.JFrame {
     }
     public JTextField getJText17(){
         return jTextField17;
+    }
+    public JTextField getJText18(){
+        return jTextField18;
+    }
+    public JTextField getJText19(){
+        return jTextField19;
+    }
+    public JTextField getJText20(){
+        return jTextField20;
+    }
+    public JTextField getJText21(){
+        return jTextField21;
+    }
+    public JTextField getJText22(){
+        return jTextField22;
+    }
+    public JTextField getJText23(){
+        return jTextField23;
+    }
+    public JTextField getJText24(){
+        return jTextField24;
     }
     public String selectedMake(String selectedMake){
         //Methods in below comments are named incorrectly

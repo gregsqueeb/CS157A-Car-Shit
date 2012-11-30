@@ -20,8 +20,8 @@ import javax.swing.*;
  * @author Greg Mathews
  */
 public class Cars {
-    static String dbConnectString = "jdbc:oracle:thin:@localhost:1521:orcl2";
-    static String dbUserName = "scott";
+    static String dbConnectString = "jdbc:oracle:thin:@localhost:1521:XE";
+    static String dbUserName = "system";
     static String dbPassword = "tiger";
     /**
      * @param args the command line arguments
@@ -89,6 +89,53 @@ public class Cars {
         final JButton newPart = test.getJButton2();
         final JButton deleteCar = test.getJButton3();
         final JButton deletePart = test.getJButton4();
+        final JButton editCar = test.getJButton5();
+        
+        // edit selected car
+        editCar.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                String makeName = (String)box1.getSelectedItem();
+                String makeAbbr = test.selectedMake(makeName);
+                // Prepare the update statement
+                String statement = "UPDATE APL"+makeAbbr+" SET";
+                String s;
+                if (!(s = test.getJText18().getText()).equals(""))
+                	statement += " model='"+s+"',";
+                if (!(s = test.getJText19().getText()).equals(""))
+                	statement += " description='"+s+"',";
+                if (!(s = test.getJText20().getText()).equals(""))
+                	statement += " year='"+s+"',";
+                if (!(s = test.getJText21().getText()).equals(""))
+                	statement += " litres='"+s+"',";
+                if (!(s = test.getJText23().getText()).equals(""))
+                	statement += " engine_type='"+s+"',";
+                if (!(s = test.getJText24().getText()).equals(""))
+                	statement += " cubic_inches='"+s+"',";
+                statement = statement.substring(0, statement.length() - 1);
+                statement += " WHERE rlink="+(String) box4.getSelectedItem();
+                
+                try{
+                    Connection conn = DriverManager.getConnection
+                     //("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
+                     //("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
+                    (dbConnectString, dbUserName, dbPassword);
+                    Statement stmt = conn.createStatement();
+                    System.out.println(statement);
+                    ResultSet testSet = stmt.executeQuery(statement);
+                    
+                    testSet.close();
+                    stmt.close();
+                    conn.close();
+                    box1.setSelectedItem("Select a Make");
+                    box2.removeAllItems();
+                    box3.removeAllItems();
+                    box4.removeAllItems();
+                }
+                catch(SQLException exep){
+                   exep.printStackTrace();
+                }
+            }
+        });
         
         // delete the selected car
         deleteCar.addActionListener(new ActionListener(){
@@ -440,7 +487,7 @@ public class Cars {
                 System.out.println(modelName);
                 
                 if(modelYear != null){
-                    System.out.println("SELECT * FROM APL"+makeAbbr+" WHERE model = '"+modelName+"' AND year = "+modelYear);
+                    System.out.println("SELECT rlink FROM APL"+makeAbbr+" WHERE model = '"+modelName+"' AND year = "+modelYear);
                     try{
                         Connection conn = DriverManager.getConnection
                         //("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
@@ -448,20 +495,11 @@ public class Cars {
                         (dbConnectString, dbUserName, dbPassword);
                         Statement stmt = conn.createStatement();
                         System.out.println(makeName);
-                        ResultSet testSet = stmt.executeQuery("SELECT * FROM APL"+makeAbbr+" WHERE model = '"+modelName+"' AND year = "+modelYear);
-                        String all_Data="";
+                        ResultSet testSet = stmt.executeQuery("SELECT rlink FROM APL"+makeAbbr+" WHERE model = '"+modelName+"' AND year = "+modelYear);
                         box4.removeAllItems();
                         while (testSet.next()){
-                            all_Data = all_Data + "Model: " + testSet.getString(1) + 
-                                    " \nYear: " + testSet.getString(2)+
-                                    " \nDescription: "+testSet.getString(3)+
-                                    " \nLITER: "+testSet.getString(4)+
-                                    " \nENG: "+testSet.getString(5)+
-                                    " \nCUBIC: "+testSet.getString(6)+
-                                    " \nRLINK: "+testSet.getString(7)+"\n";
-                                   box4.addItem(testSet.getString(7));
+                                   box4.addItem(testSet.getString(1));
                         }
-                        text.setText(all_Data);
                         testSet.close();
                         stmt.close();
                         conn.close();
@@ -479,6 +517,41 @@ public class Cars {
             public void actionPerformed(ActionEvent e){              
                
                 String rlink = (String)box4.getSelectedItem();
+                String modelName = (String)box2.getSelectedItem();
+                String makeName = (String)box1.getSelectedItem();
+                String makeAbbr = test.selectedMake(makeName);
+                String modelYear = (String)box3.getSelectedItem();
+                System.out.println(modelName);
+                
+                if(modelYear != null){
+                    System.out.println("SELECT * FROM APL"+makeAbbr+" WHERE model = '"+modelName+"' AND year = "+modelYear+" AND rlink="+rlink);
+                    try{
+                        Connection conn = DriverManager.getConnection
+                        //("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
+                        //("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
+                        (dbConnectString, dbUserName, dbPassword);
+                        Statement stmt = conn.createStatement();
+                        System.out.println(makeName);
+                        ResultSet testSet = stmt.executeQuery("SELECT * FROM APL"+makeAbbr+" WHERE model = '"+modelName+"' AND year = "+modelYear+" AND rlink="+rlink);
+                        String all_Data="";
+                        while (testSet.next()){
+                            all_Data = all_Data + "Model: " + testSet.getString(1) + 
+                                    " \nYear: " + testSet.getString(2)+
+                                    " \nDescription: "+testSet.getString(3)+
+                                    " \nLITER: "+testSet.getString(4)+
+                                    " \nENG: "+testSet.getString(5)+
+                                    " \nCUBIC: "+testSet.getString(6)+
+                                    " \nRLINK: "+testSet.getString(7)+"\n";
+                        }
+                        text.setText(all_Data);
+                        testSet.close();
+                        stmt.close();
+                        conn.close();
+                    }
+                    catch(SQLException exep){
+                       exep.printStackTrace();
+                    }
+                }
                   
                     try{
                         Connection conn = DriverManager.getConnection
