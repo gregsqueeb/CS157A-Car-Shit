@@ -303,7 +303,7 @@ public class Cars {
                 makeAbbr = test.selectedMake(make);
                 
                 System.out.println("model: " + model + " description: " + description + " year: " + year + " liter: " + liter + " rlink: " + rlink + " engine: " + engine + " cubic: " + cubic + " make: " + make + " abbr: " + makeAbbr);
-        try{
+                try{
                     Connection conn = DriverManager.getConnection
                      //("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
                      //("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
@@ -317,7 +317,7 @@ public class Cars {
                     stmt.close();
                     conn.close();
                     
-        }catch(SQLException exep){
+                 }catch(SQLException exep){
                             exep.printStackTrace();
                       }
             
