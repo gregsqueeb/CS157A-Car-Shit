@@ -20,7 +20,9 @@ import javax.swing.*;
  * @author Greg Mathews
  */
 public class Cars {
-
+    static String dbConnectString = "jdbc:oracle:thin:@localhost:1521:orcl2";
+    static String dbUserName = "scott";
+    static String dbPassword = "tiger";
     /**
      * @param args the command line arguments
      */
@@ -35,9 +37,9 @@ public class Cars {
         
              // connect through driver
              Connection conn = DriverManager.getConnection
-                     ("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
+                     //("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
                      //("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
-        
+                     (dbConnectString, dbUserName, dbPassword);
              // Create Oracle DatabaseMetaData object
              DatabaseMetaData meta = conn.getMetaData();
         
@@ -96,8 +98,9 @@ public class Cars {
                 
                 try{
                     Connection conn = DriverManager.getConnection
-                     ("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
-                            //("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
+                     //("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
+                     //("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
+                    (dbConnectString, dbUserName, dbPassword);
                     Statement stmt = conn.createStatement();
                     System.out.println("Delete from APL"+makeAbbr+" where model ='"+box2.getSelectedItem()+"' and year="+box3.getSelectedItem()+" and rlink = "+box4.getSelectedItem());
                     ResultSet testSet = stmt.executeQuery("Delete from APL"+makeAbbr+" where model = '"+box2.getSelectedItem()+"' and year = "+box3.getSelectedItem()+" and rlink = "+box4.getSelectedItem());
@@ -123,8 +126,9 @@ public class Cars {
                 
                 try{
                     Connection conn = DriverManager.getConnection
-                     ("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
-                            //("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
+                     //("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
+                     //("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
+                    (dbConnectString, dbUserName, dbPassword);
                     Statement stmt = conn.createStatement();
                     String rlink = (String)box4.getSelectedItem();
                     System.out.println("delete from rdimmod where P_Number in (select MOD4 from radcrx where rlink=" + rlink+ ")");
@@ -208,8 +212,9 @@ public class Cars {
                 }
                 try{
                     Connection conn = DriverManager.getConnection
-                     ("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
-                            //("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
+                     //("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
+                     //("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
+                    (dbConnectString, dbUserName, dbPassword);
                     Statement stmt = conn.createStatement();
                     System.out.println("INSERT INTO rdimmod VALUES ('"+pnum+"','"+core+"','"+inhead+"','"+outhead+"','"+incon+"','"+oucon+"','"+tmount+"','"+oilcool+"',"+price+", "+amount+")");
                     ResultSet testSet = stmt.executeQuery("INSERT INTO rdimmod VALUES ('"+pnum+"','"+core+"','"+inhead+"','"+outhead+"','"+incon+"','"+oucon+"','"+tmount+"','"+oilcool+"',"+price+", "+amount+")");
@@ -319,8 +324,9 @@ public class Cars {
 
                 try{
                     Connection conn = DriverManager.getConnection
-                     ("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
-                            //("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
+                    //("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
+                    //("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
+                    (dbConnectString, dbUserName, dbPassword);
                     Statement stmt = conn.createStatement();
                     System.out.println("INSERT INTO APL"+makeAbbr+" VALUES ('"+model+"', "+year+", '"+description+"', '"+liter+"', '"+engine+"', "+cubic+", "+rlink+")");
                     ResultSet testSet = stmt.executeQuery("INSERT INTO APL"+makeAbbr+" VALUES ('"+model+"', "+year+", '"+description+"', '"+liter+"', '"+engine+"', "+cubic+", "+rlink+")");
@@ -373,8 +379,9 @@ public class Cars {
                 
                 try{
                     Connection conn = DriverManager.getConnection
-                     ("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
-                            //("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
+                     //("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
+                     //("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
+                    (dbConnectString, dbUserName, dbPassword);
                     Statement stmt = conn.createStatement();
                     ResultSet testSet = stmt.executeQuery("SELECT DISTINCT MODEL FROM APL"+makeAbbr);
                     box2.removeAllItems();
@@ -435,8 +442,9 @@ public class Cars {
                     System.out.println("SELECT * FROM APL"+makeAbbr+" WHERE model = '"+modelName+"' AND year = "+modelYear);
                     try{
                         Connection conn = DriverManager.getConnection
-                         ("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
-                                //("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
+                        //("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
+                        //("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
+                        (dbConnectString, dbUserName, dbPassword);
                         Statement stmt = conn.createStatement();
                         System.out.println(makeName);
                         ResultSet testSet = stmt.executeQuery("SELECT * FROM APL"+makeAbbr+" WHERE model = '"+modelName+"' AND year = "+modelYear);
@@ -473,8 +481,9 @@ public class Cars {
                   
                     try{
                         Connection conn = DriverManager.getConnection
-                         ("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
-                         //       ("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
+                         //("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
+                         //("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
+                        (dbConnectString, dbUserName, dbPassword);
                         Statement stmt = conn.createStatement();
                         ResultSet testSet = stmt.executeQuery("select * from rdimmod where P_Number in (select MOD4 from radcrx where rlink=" + rlink+ ")");
                         String all_Data="";
