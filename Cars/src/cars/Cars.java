@@ -20,7 +20,7 @@ import javax.swing.*;
  * @author Greg Mathews
  */
 public class Cars {
-    static String dbConnectString = "jdbc:oracle:thin:@localhost:1521:orcl2";
+    static String dbConnectString = "jdbc:oracle:thin:@localhost:1521:orcl";
     static String dbUserName = "scott";
     static String dbPassword = "tiger";
     static String oPNUM;
@@ -303,15 +303,19 @@ public class Cars {
                 makeAbbr = test.selectedMake(make);
                 
                 System.out.println("model: " + model + " description: " + description + " year: " + year + " liter: " + liter + " rlink: " + rlink + " engine: " + engine + " cubic: " + cubic + " make: " + make + " abbr: " + makeAbbr);
-        try{
+                //String qstatement = null;
+                //qstatement = "UPDATE APL"+makeAbbr+" SET description='"+description+"', litres='"+liter+"', engine_type='"+engine+"', cubic_inches='"+cubic+"' WHERE model='"+model+"' AND year='"+year+"' AND rlink='"+rlink+"'";
+                
+                
+                try{
                     Connection conn = DriverManager.getConnection
                      //("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
                      //("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
                     (dbConnectString, dbUserName, dbPassword);
                     
                     Statement stmt = conn.createStatement();
-
-                    ResultSet testSet = stmt.executeQuery("delete from rdimmod where P_Number in (select MOD4 from radcrx where rlink=" + rlink+ ")");
+                    System.out.println("UPDATE APL"+makeAbbr+" SET description='"+description+"', litres='"+liter+"', engine_type='"+engine+"', cubic_inches='"+cubic+"' WHERE model='"+model+"' AND year='"+year+"' AND rlink='"+rlink+"'");
+                    ResultSet testSet = stmt.executeQuery("UPDATE APL"+makeAbbr+" SET description='"+description+"', litres='"+liter+"', engine_type='"+engine+"', cubic_inches='"+cubic+"' WHERE model='"+model+"' AND year='"+year+"' AND rlink='"+rlink+"'");
                     
                     testSet.close();
                     stmt.close();
