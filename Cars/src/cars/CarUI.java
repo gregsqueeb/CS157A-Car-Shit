@@ -480,11 +480,16 @@ else
 
         jLabel21.setText("Edit Car");
 
+        jTextField18.setEditable(false);
         jTextField18.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField18ActionPerformed(evt);
             }
         });
+
+        jTextField20.setEditable(false);
+
+        jTextField22.setEditable(false);
 
         jLabel22.setText("Model");
 
