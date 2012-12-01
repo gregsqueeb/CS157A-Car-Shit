@@ -110,6 +110,7 @@ public class Cars {
         final JButton newPart = test.getJButton2();
         final JButton deleteCar = test.getJButton3();
         final JButton deletePart = test.getJButton4();
+        final JButton updateCar = test.getJButton5();
         final JButton updatePart = test.getJButton6();        
         // delete the selected car
         deleteCar.addActionListener(new ActionListener(){
@@ -287,7 +288,24 @@ public class Cars {
             }
         });
 
-// code to create a new part
+// code to update car
+     updateCar.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) { 
+                String make, makeAbbr, model, description, year, liter, rlink, engine, cubic;
+                model = textField18.getText();
+                description = textField19.getText();
+                year = textField20.getText();
+                liter = textField21.getText();
+                rlink = textField22.getText();
+                engine = textField23.getText();
+                cubic = textField24.getText();
+                make = (String)box1.getSelectedItem();
+                makeAbbr = test.selectedMake(make);
+                
+                System.out.println("model: " + model + " description: " + description + " year: " + year + " liter: " + liter + " rlink: " + rlink + " engine: " + engine + " cubic: " + cubic + " make: " + make + " abbr: " + makeAbbr);
+        }
+     }); 
+// code to update part
         updatePart.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
                   String origPnum = oPNUM;

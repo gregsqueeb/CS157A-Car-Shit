@@ -53,6 +53,9 @@ public class CarUI extends javax.swing.JFrame {
         return jButton4;
     }
 // tim's adding jbutton 6
+    public JButton getJButton5(){
+        return jButton5;
+    }
     public JButton getJButton6(){
         return jButton6;
     }
