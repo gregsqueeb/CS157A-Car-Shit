@@ -87,6 +87,14 @@ public class Cars {
         final JTextField textField16 = test.getJText16();
         final JTextField textField17 = test.getJText17();
         // Tim's Additional field
+        final JTextField textField18 = test.getJText18();
+        final JTextField textField19 = test.getJText19();
+        final JTextField textField20 = test.getJText20();
+        final JTextField textField21 = test.getJText21();
+        final JTextField textField22 = test.getJText22();
+        final JTextField textField23 = test.getJText23();
+        final JTextField textField24 = test.getJText24();
+        
         final JTextField textField25 = test.getJText25();
         final JTextField textField26 = test.getJText26(); 
         final JTextField textField27 = test.getJText27();
@@ -731,13 +739,13 @@ public class Cars {
                         String all_Data="";
                         box4.removeAllItems();
                         while (testSet.next()){
-                            all_Data = all_Data + "Model: " + testSet.getString(1) + 
-                                    " \nYear: " + testSet.getString(2)+
-                                    " \nDescription: "+testSet.getString(3)+
-                                    " \nLITER: "+testSet.getString(4)+
-                                    " \nENG: "+testSet.getString(5)+
-                                    " \nCUBIC: "+testSet.getString(6)+
-                                    " \nRLINK: "+testSet.getString(7)+"\n";
+//                            all_Data = all_Data + "Model: " + testSet.getString(1) + 
+//                                    " \nYear: " + testSet.getString(2)+
+//                                    " \nDescription: "+testSet.getString(3)+
+//                                    " \nLITER: "+testSet.getString(4)+
+//                                    " \nENG: "+testSet.getString(5)+
+//                                    " \nCUBIC: "+testSet.getString(6)+
+//                                    " \nRLINK: "+testSet.getString(7)+"\n";
                                    box4.addItem(testSet.getString(7));
                         }
                         text.setText(all_Data);
@@ -796,6 +804,9 @@ public class Cars {
                         }
                         text2.setText(all_Data);
          
+                        
+                        
+                        
                         testSet.close();
                         stmt.close();
                         conn.close();
@@ -803,8 +814,56 @@ public class Cars {
                     catch(SQLException exep){
                        exep.printStackTrace();
                     }
-                }
+                    
+                
+                
+// Experiment
+                try{
+                    String modelName = (String)box2.getSelectedItem();
+                    String makeName = (String)box1.getSelectedItem();
+                    String makeAbbr = test.selectedMake(makeName);
+                    String modelYear = (String)box3.getSelectedItem();
+                    System.out.println(modelName);
+                        Connection conn = DriverManager.getConnection
+                         //("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
+                         //("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
+                        (dbConnectString, dbUserName, dbPassword);
+                        Statement stmt = conn.createStatement();
+                        ResultSet testSet = stmt.executeQuery("SELECT * FROM APL"+makeAbbr+" WHERE model = '"+modelName+"' AND year = '"+modelYear+"' AND rlink = "+rlink);
+                        String all_Data="";
+                        while (testSet.next()){
+                            all_Data = all_Data + "Model: " + testSet.getString(1) + 
+                                    " \nYear: " + testSet.getString(2)+
+                                    " \nDescription: "+testSet.getString(3)+
+                                    " \nLITER: "+testSet.getString(4)+
+                                    " \nENG: "+testSet.getString(5)+
+                                    " \nCUBIC: "+testSet.getString(6)+
+                                    " \nRLINK: "+rlink+"\n";
+                            textField18.setText(testSet.getString(1));
+                            textField19.setText(testSet.getString(3));
+                            textField20.setText(testSet.getString(2));
+                            textField21.setText(testSet.getString(4));
+                            textField22.setText(rlink);
+                            textField23.setText(testSet.getString(5));
+                            textField24.setText(testSet.getString(6));
+                                            
+                                                   
+                        }
+                        text.setText(all_Data);
+         
+                        
+                        
+                        
+                        testSet.close();
+                        stmt.close();
+                        conn.close();
+                        }
+                    catch(SQLException exep){
+                       exep.printStackTrace();
+                    }
+// End Experiment
             
+           } 
         });
         
         test.setVisible(true);
