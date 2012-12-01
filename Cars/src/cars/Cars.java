@@ -303,6 +303,24 @@ public class Cars {
                 makeAbbr = test.selectedMake(make);
                 
                 System.out.println("model: " + model + " description: " + description + " year: " + year + " liter: " + liter + " rlink: " + rlink + " engine: " + engine + " cubic: " + cubic + " make: " + make + " abbr: " + makeAbbr);
+        try{
+                    Connection conn = DriverManager.getConnection
+                     //("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
+                     //("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
+                    (dbConnectString, dbUserName, dbPassword);
+                    
+                    Statement stmt = conn.createStatement();
+
+                    ResultSet testSet = stmt.executeQuery("delete from rdimmod where P_Number in (select MOD4 from radcrx where rlink=" + rlink+ ")");
+                    
+                    testSet.close();
+                    stmt.close();
+                    conn.close();
+                    
+        }catch(SQLException exep){
+                            exep.printStackTrace();
+                      }
+            
         }
      }); 
 // code to update part
