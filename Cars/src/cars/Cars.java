@@ -23,6 +23,8 @@ public class Cars {
     static String dbConnectString = "jdbc:oracle:thin:@localhost:1521:orcl2";
     static String dbUserName = "scott";
     static String dbPassword = "tiger";
+    static String oPNUM;
+    boolean fieldcheck = true;
     /**
      * @param args the command line arguments
      */
@@ -84,12 +86,23 @@ public class Cars {
         final JTextField textField15 = test.getJText15();
         final JTextField textField16 = test.getJText16();
         final JTextField textField17 = test.getJText17();
-        
+        // Tim's Additional field
+        final JTextField textField25 = test.getJText25();
+        final JTextField textField26 = test.getJText26(); 
+        final JTextField textField27 = test.getJText27();
+        final JTextField textField28 = test.getJText28();
+        final JTextField textField29 = test.getJText29();
+        final JTextField textField30 = test.getJText30();
+        final JTextField textField31 = test.getJText31();
+        final JTextField textField32 = test.getJText32();
+        final JTextField textField33 = test.getJText33();
+        final JTextField textField34 = test.getJText34();        
+        //
         final JButton newCar = test.getJButton1();
         final JButton newPart = test.getJButton2();
         final JButton deleteCar = test.getJButton3();
         final JButton deletePart = test.getJButton4();
-        
+        final JButton updatePart = test.getJButton6();        
         // delete the selected car
         deleteCar.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
@@ -265,7 +278,273 @@ public class Cars {
                 
             }
         });
-        
+
+// code to create a new part
+        updatePart.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                  String origPnum = oPNUM;
+                  String rlink = (String)box4.getSelectedItem();
+                  String pnum, core, inhead, outhead, incon, oucon, tmount, oilcool, price, amount;
+                  System.out.println(origPnum);
+//                  if(textField25.getText().equals(origPnum)){
+//                      pnum = textField25.getText();
+//                      core = textField32.getText();
+//                      inhead = textField31.getText();
+//                      outhead = textField30.getText();
+//                      incon = textField34.getText();
+//                      oucon = textField26.getText();
+//                      tmount = textField29.getText();
+//                      oilcool = textField28.getText();
+//                      price = textField27.getText();
+//                      amount = textField33.getText();
+//                  }else{
+                      pnum = textField25.getText();
+                      core = textField32.getText();
+                      inhead = textField31.getText();
+                      outhead = textField30.getText();
+                      incon = textField34.getText();
+                      oucon = textField26.getText();
+                      tmount = textField29.getText();
+                      oilcool = textField28.getText();
+                      price = textField27.getText();
+                      amount = textField33.getText();
+//                  }
+                  
+                  if(!textField25.getText().equals(origPnum)){
+                      try{
+//                          String [] queries = {
+//                              "INSERT INTO RDIMARS (P_NUMBER, CORE, INHEAD, OUTHEAD, INCON, OUCON, TMOUNT, OILCOOL, PRICE, AMOUNT) SELECT '"+pnum+"','"+core+"','"+inhead+"','"+outhead+"','"+incon+"','"+oucon+"','"+tmount+"','"+oilcool+"','"+price+"', '"+amount+"' FROM RDIMARS WHERE P_NUMBER='"+origPnum+"'",
+//                          };
+                                  
+                          Connection conn = DriverManager.getConnection(dbConnectString, dbUserName, dbPassword);   
+                          Statement stmt = conn.createStatement();
+                         // ResultSet testSet = stmt.executeQuery("INSERT INTO RDIMARS (P_NUMBER, CORE, INHEAD, OUTHEAD, INCON, OUCON, TMOUNT, OILCOOL, PRICE, AMOUNT) SELECT '"+pnum+"','"+core+"','"+inhead+"','"+outhead+"','"+incon+"','"+oucon+"','"+tmount+"','"+oilcool+"','"+price+"', '"+amount+"' FROM RDIMARS WHERE P_NUMBER='"+origPnum+"'");
+                          
+                            String ars = "INSERT INTO RDIMARS (P_NUMBER, CORE, INHEAD, OUTHEAD, INCON, OUCON, TMOUNT, OILCOOL, PRICE, AMOUNT) SELECT '"+pnum+"','"+core+"','"+inhead+"','"+outhead+"','"+incon+"','"+oucon+"','"+tmount+"','"+oilcool+"','"+price+"', '"+amount+"' FROM RDIMARS WHERE P_NUMBER='"+origPnum+"'";
+                           // System.out.println(ars);
+                            String ars1 = "UPDATE RADCRX SET ARS1='"+pnum+"' WHERE ARS1='"+origPnum+"'";
+                            String ars2 = "UPDATE RADCRX SET ARS2='"+pnum+"' WHERE ARS2='"+origPnum+"'";
+                            String ars3 = "UPDATE RADCRX SET ARS3='"+pnum+"' WHERE ARS3='"+origPnum+"'";
+                            String ars4 = "UPDATE RADCRX SET ARS4='"+pnum+"' WHERE ARS4='"+origPnum+"'";
+                            String dars = "DELETE FROM RDIMARS WHERE P_NUMBER='"+origPnum+"'";
+                            String beh = "INSERT INTO RDIMBEH (P_NUMBER, CORE, INHEAD, OUTHEAD, INCON, OUCON, TMOUNT, OILCOOL, PRICE, AMOUNT) SELECT '"+pnum+"','"+core+"','"+inhead+"','"+outhead+"','"+incon+"','"+oucon+"','"+tmount+"','"+oilcool+"','"+price+"', '"+amount+"' FROM RDIMBEH WHERE P_NUMBER='"+origPnum+"'";
+                            String beh1 = "UPDATE RADCRX SET BEH1='"+pnum+"' WHERE BEH1='"+origPnum+"'";
+                            String beh2 = "UPDATE RADCRX SET BEH2='"+pnum+"' WHERE BEH2='"+origPnum+"'";
+                            String beh3 = "UPDATE RADCRX SET BEH3='"+pnum+"' WHERE BEH3='"+origPnum+"'";
+                            String beh4 = "UPDATE RADCRX SET ARS4='"+pnum+"' WHERE ARS4='"+origPnum+"'";
+                            String dbeh = "DELETE FROM RDIMBEH WHERE P_NUMBER='"+origPnum+"'";
+                            String dan = "INSERT INTO RDIMDAN (P_NUMBER, CORE, INHEAD, OUTHEAD, INCON, OUCON, TMOUNT, OILCOOL, PRICE, AMOUNT) SELECT '"+pnum+"','"+core+"','"+inhead+"','"+outhead+"','"+incon+"','"+oucon+"','"+tmount+"','"+oilcool+"','"+price+"', '"+amount+"' FROM RDIMDAN WHERE P_NUMBER='"+origPnum+"'";
+                            String dan1 = "UPDATE RADCRX SET DAN1='"+pnum+"' WHERE DAN1='"+origPnum+"'";
+                            String dan2 = "UPDATE RADCRX SET DAN2='"+pnum+"' WHERE DAN2='"+origPnum+"'";
+                            String dan3 = "UPDATE RADCRX SET DAN3='"+pnum+"' WHERE DAN3='"+origPnum+"'";
+                            String dan4 = "UPDATE RADCRX SET DAN4='"+pnum+"' WHERE DAN4='"+origPnum+"'";
+                            String ddan = "DELETE FROM RDIMDAN WHERE P_NUMBER='"+origPnum+"'";
+                            String mod = "INSERT INTO RDIMMOD (P_NUMBER, CORE, INHEAD, OUTHEAD, INCON, OUCON, TMOUNT, OILCOOL, PRICE, AMOUNT) SELECT '"+pnum+"','"+core+"','"+inhead+"','"+outhead+"','"+incon+"','"+oucon+"','"+tmount+"','"+oilcool+"','"+price+"', '"+amount+"' FROM RDIMMOD WHERE P_NUMBER='"+origPnum+"'";
+                            String mod1 = "UPDATE RADCRX SET MOD1='"+pnum+"' WHERE MOD1='"+origPnum+"'";
+                            String mod2 = "UPDATE RADCRX SET MOD2='"+pnum+"' WHERE MOD2='"+origPnum+"'";
+                            String mod3 = "UPDATE RADCRX SET MOD3='"+pnum+"' WHERE MOD3='"+origPnum+"'";
+                            String mod4 = "UPDATE RADCRX SET MOD4='"+pnum+"' WHERE MOD4='"+origPnum+"'";
+                            String dmod = "DELETE FROM RDIMMOD WHERE P_NUMBER='"+origPnum+"'";
+                            //System.out.println("INSERT INTO RDIMARS VALUES ('"+pnum+"','"+core+"','"+inhead+"','"+outhead+"','"+incon+"','"+oucon+"','"+tmount+"','"+oilcool+"',"+price+", "+amount+")");
+                            //ResultSet testSet = stmt.executeQuery("INSERT INTO rdimmod VALUES ('"+pnum+"','"+core+"','"+inhead+"','"+outhead+"','"+incon+"','"+oucon+"','"+tmount+"','"+oilcool+"',"+price+", "+amount+")");
+                            //testSet.close();
+                            conn.setAutoCommit(false);
+                            stmt.addBatch(ars);
+                            stmt.addBatch(ars1);
+                            stmt.addBatch(ars2);
+                            stmt.addBatch(ars3);
+                            stmt.addBatch(ars4);
+                            stmt.addBatch(dars);
+                            stmt.addBatch(beh);
+                            stmt.addBatch(beh1);
+                            stmt.addBatch(beh2);
+                            stmt.addBatch(beh3);
+                            stmt.addBatch(beh4);
+                            stmt.addBatch(dbeh);
+                            stmt.addBatch(dan);
+                            stmt.addBatch(dan1);
+                            stmt.addBatch(dan2);
+                            stmt.addBatch(dan3);
+                            stmt.addBatch(dan4);
+                            stmt.addBatch(ddan);
+                            stmt.addBatch(mod);
+                            stmt.addBatch(mod1);
+                            stmt.addBatch(mod2);
+                            stmt.addBatch(mod3);
+                            stmt.addBatch(mod4);
+                            stmt.addBatch(dmod);
+                            stmt.executeBatch();
+                            conn.commit();
+                            stmt.close();
+                            conn.close();
+                            textField25.setText("");
+                            textField32.setText("");
+                            textField31.setText("");
+                            textField30.setText("");
+                            textField34.setText("");
+                            textField26.setText("");
+                            textField29.setText("");
+                            textField28.setText("");
+                            textField27.setText("");
+                            textField33.setText("");
+                      }catch(SQLException exep){
+                            exep.printStackTrace();
+                      }
+                  }else{
+                      try{
+                          Connection conn = DriverManager.getConnection(dbConnectString, dbUserName, dbPassword);   
+                          //Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                          Statement stmt = conn.createStatement();
+                          System.out.println("UPDATE RDIMARS SET CORE='"+core+"', INHEAD='"+inhead+"', OUTHEAD='"+outhead+"', INCON='"+incon+"', OUCON='"+oucon+"', TMOUNT='"+tmount+"', OILCOOL='"+oilcool+"', PRICE='"+price+"', AMOUNT='"+amount+"' WHERE P_NUMBER='"+origPnum+"';");
+                            String ars = "UPDATE RDIMARS SET CORE='"+core+"', INHEAD='"+inhead+"', OUTHEAD='"+outhead+"', INCON='"+incon+"', OUCON='"+oucon+"', TMOUNT='"+tmount+"', OILCOOL='"+oilcool+"', PRICE='"+price+"', AMOUNT='"+amount+"' WHERE P_NUMBER='"+origPnum+"'";
+                            String beh = "UPDATE RDIMBEH SET CORE='"+core+"', INHEAD='"+inhead+"', OUTHEAD='"+outhead+"', INCON='"+incon+"', OUCON='"+oucon+"', TMOUNT='"+tmount+"', OILCOOL='"+oilcool+"', PRICE='"+price+"', AMOUNT='"+amount+"' WHERE P_NUMBER='"+origPnum+"'";
+                            String dan = "UPDATE RDIMDAN SET CORE='"+core+"', INHEAD='"+inhead+"', OUTHEAD='"+outhead+"', INCON='"+incon+"', OUCON='"+oucon+"', TMOUNT='"+tmount+"', OILCOOL='"+oilcool+"', PRICE='"+price+"', AMOUNT='"+amount+"' WHERE P_NUMBER='"+origPnum+"'";
+                            String mod = "UPDATE RDIMMOD SET CORE='"+core+"', INHEAD='"+inhead+"', OUTHEAD='"+outhead+"', INCON='"+incon+"', OUCON='"+oucon+"', TMOUNT='"+tmount+"', OILCOOL='"+oilcool+"', PRICE='"+price+"', AMOUNT='"+amount+"' WHERE P_NUMBER='"+origPnum+"'";
+                            conn.setAutoCommit(false);
+                            stmt.addBatch(ars);
+                            stmt.addBatch(beh);
+                            stmt.addBatch(dan);
+                            stmt.addBatch(mod);
+                            stmt.executeBatch();
+                            conn.commit();
+                            //System.out.println("UPDATE RDIMARS SET CORE='"+core+"', SET INHEAD='"+inhead+"', SET OUTHEAD='"+outhead+"', SET INCON='"+incon+"', SET OUCON='"+oucon+"', SET TMOUNT='"+tmount+"', SET OILCOOL='"+oilcool+"', SET PRICE='"+price+"', SET AMOUNT='"+amount+"' WHERE P_NUMBER='"+origPnum+"';");
+                            //ResultSet testSet = stmt.executeQuery("UPDATE RDIMARS SET CORE='"+core+"', SET INHEAD='"+inhead+"', SET OUTHEAD='"+outhead+"', SET INCON='"+incon+"', SET OUCON='"+oucon+"', SET TMOUNT='"+tmount+"', SET OILCOOL='"+oilcool+"', SET PRICE='"+price+"', SET AMOUNT='"+amount+"' WHERE P_NUMBER='"+origPnum+"';");
+                            // testSet.close();
+                            stmt.close();
+                            conn.close();
+                            textField25.setText("");
+                            textField32.setText("");
+                            textField31.setText("");
+                            textField30.setText("");
+                            textField34.setText("");
+                            textField26.setText("");
+                            textField29.setText("");
+                            textField28.setText("");
+                            textField27.setText("");
+                            textField33.setText("");
+                      }catch(SQLException exep){
+                            exep.printStackTrace();
+                      }
+                  }
+                  
+                  
+//                String rlink = (String)box4.getSelectedItem();
+//                String pnum, core, inhead, outhead, incon, oucon, tmount, oilcool, price, amount;
+//                if(textField8.getText().equals("")){
+//                    pnum = "NA";
+//                }
+//                else{
+//                    pnum = textField8.getText();
+//                }
+//                if(textField9.getText().equals("")){
+//                    core = "NA";
+//                }
+//                else{
+//                    core = textField9.getText();
+//                }
+//                if(textField10.getText().equals("")){
+//                    inhead = "NA";
+//                }
+//                else{
+//                    inhead = textField10.getText();
+//                }
+//                if(textField11.getText().equals("")){
+//                    outhead = "NA";
+//                }
+//                else{
+//                    outhead = textField11.getText();
+//                }
+//                if(textField12.getText().equals("")){
+//                   incon = "NA";
+//                }
+//                else{
+//                    incon = textField12.getText();
+//                }
+//                if(textField13.getText().equals("")){
+//                    oucon = "NA";
+//                }
+//                else{
+//                    oucon = textField13.getText();
+//                }
+//                if(textField14.getText().equals("")){
+//                    tmount = "NA";
+//                }
+//                else{
+//                    tmount = textField14.getText();
+//                }
+//                if(textField15.getText().equals("")){
+//                    oilcool = "NA";
+//                }
+//                else{
+//                    oilcool = textField15.getText();
+//                }
+//                if(textField16.getText().equals("")){
+//                    price = "0";
+//                }
+//                else{
+//                    price = textField16.getText();
+//                }
+//                if(textField17.getText().equals("")){
+//                    amount = "0";
+//                }
+//                else{
+//                    amount = textField17.getText();
+//                }
+//                try{
+//                    Connection conn = DriverManager.getConnection
+//                     //("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
+//                     //("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
+//                    (dbConnectString, dbUserName, dbPassword);
+//                    Statement stmt = conn.createStatement();
+//                    System.out.println("INSERT INTO rdimmod VALUES ('"+pnum+"','"+core+"','"+inhead+"','"+outhead+"','"+incon+"','"+oucon+"','"+tmount+"','"+oilcool+"',"+price+", "+amount+")");
+//                    ResultSet testSet = stmt.executeQuery("INSERT INTO rdimmod VALUES ('"+pnum+"','"+core+"','"+inhead+"','"+outhead+"','"+incon+"','"+oucon+"','"+tmount+"','"+oilcool+"',"+price+", "+amount+")");
+//                    testSet.close();
+//                    stmt.close();
+//                    conn.close();
+//                    newPart.setText("Inserted");
+//                    textField8.setText("");
+//                    textField9.setText("");
+//                    textField10.setText("");
+//                    textField11.setText("");
+//                    textField12.setText("");
+//                    textField13.setText("");
+//                    textField14.setText("");
+//                    textField15.setText("");
+//                    textField16.setText("");
+//                    textField17.setText("");
+//                    String all_Data = "PNum: " + pnum + 
+//                                    " \nCore: " + core+
+//                                    " \nINHEAD: "+inhead+
+//                                    " \nOUTHEAD: "+outhead+
+//                                    " \nINCON: "+incon+
+//                                    " \nOUCON: "+oucon+
+//                                    " \nTMOUNT: "+tmount+
+//                                    " \nOILCOOL: "+oilcool+
+//                                    " \nPRICE: "+price+
+//                                    " \nAMOUNT: "+amount+"\n";
+//                    text2.setText(all_Data);
+//                    Timer time = new Timer();
+//                    (new Thread(new Runnable(){
+//                        public void run(){
+//                            newPart.setEnabled(false);
+//                            try{
+//                                Thread.sleep(2000);
+//                            }
+//                            catch(InterruptedException exep){
+//                                exep.printStackTrace();
+//                            }
+//                            newPart.setText("Add Part");
+//                            newPart.setEnabled(true);
+//                        }
+//                    })).start();
+//                }
+//                catch(SQLException exep){
+//                   exep.printStackTrace();
+//                }
+                
+                
+            }
+        });        
         
         // code to create a new car
         newCar.addActionListener(new ActionListener(){
@@ -500,9 +779,23 @@ public class Cars {
                                     " \nPRICE: "+testSet.getString(9)+
                                     " \nAMOUNT: "+testSet.getString(10)+"\n";
                                             
-                        }
+                        // tim's field retrieval
+                            textField25.setText(testSet.getString(1));
+                            oPNUM = testSet.getString(1);
+                            textField26.setText(testSet.getString(6));
+                            textField32.setText(testSet.getString(2));
+                            textField29.setText(testSet.getString(7));
+                            textField31.setText(testSet.getString(3));
+                            textField28.setText(testSet.getString(8));
+                            textField30.setText(testSet.getString(4));
+                            textField27.setText(testSet.getString(9));
+                            textField34.setText(testSet.getString(5));
+                            textField33.setText(testSet.getString(10));
                         
+                        //                            
+                        }
                         text2.setText(all_Data);
+         
                         testSet.close();
                         stmt.close();
                         conn.close();
