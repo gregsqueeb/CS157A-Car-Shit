@@ -410,8 +410,9 @@ public class Cars {
                     System.out.println("SELECT YEAR FROM APL"+makeAbbr+" WHERE model = '"+modelName+"'");
                     try{
                         Connection conn = DriverManager.getConnection
-                         ("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
-                                //("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
+                         //("jdbc:oracle:thin:@localhost:1521:ORCL","system","admin");
+                         //("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
+                        (dbConnectString, dbUserName, dbPassword);
                         Statement stmt = conn.createStatement();
                         System.out.println(makeName);
                         ResultSet testSet = stmt.executeQuery("SELECT DISTINCT YEAR FROM APL"+makeAbbr+" WHERE model = '"+modelName+"'");
